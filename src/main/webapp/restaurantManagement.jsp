@@ -45,7 +45,7 @@ information accordingly -->
 							<td><c:out value="${restaurant.restaurantName}" /></td>
 							<td><c:out value="${restaurant.restaurantLocation}" /></td>
 							<td><c:out value="${restaurant.openingTime}" /></td>
-							<td><c:out value="${restaurant.openingTime}" /></td>
+							<td><c:out value="${restaurant.closingTime}" /></td>
 							<td><c:out value="${restaurant.restaurantDescription}" /></td>
 							<td><c:out value="${restaurant.restaurantCuisine}" /></td>
 							<!-- For each restaurant in the database, Edit/Delete
