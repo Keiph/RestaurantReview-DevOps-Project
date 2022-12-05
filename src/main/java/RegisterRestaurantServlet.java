@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 /**
  * Servlet implementation class RestaurantServlet
  */
-@WebServlet("/RestaurantServlet")
+@WebServlet("/RegisterRestaurantServlet")
 public class RegisterRestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/**
