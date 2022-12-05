@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="AddRestaurantServlet" method="post">
+	<form action="RestaurantServlet" method="post">
 		Name of Restaurant: <input type="text" name="restaurantName"><br>
 		Restaurant Location: <input type="text" name="restaurantLocation"><br>
 		Opening time: <input type="text" name="restaurantOpening"><br>
