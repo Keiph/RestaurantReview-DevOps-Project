@@ -2,6 +2,10 @@
 Web Application done by Keiph and Hong Chao Ying from P04 Y2022/2023
 The focus of the project is applying DevOps knowledge into programing and learning collaboration between differing programing styles with the help of Source Code Management Tools and Version Control in enabling for close monitoring and avoid unforseen conflicts.
 
+# Web Application Versions
+V1 - User Management & Restaurant Management
+V2 - Food Management & Review Management
+
 # Use Case for Restaurant Review
 ![DVOPS_UseCase](https://user-images.githubusercontent.com/83292954/205736001-fcb67849-72a6-4992-8cd6-e01515daef7c.png)
 
