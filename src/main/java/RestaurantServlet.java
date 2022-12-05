@@ -1,17 +1,21 @@
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//Import these libraries from java.io and java.sql
-import java.io.PrintWriter;
+
+import com.dvops.maven.eclipse.Restaurant;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 
 /**
  * Servlet implementation class RestaurantServlet
@@ -19,6 +23,35 @@ import java.sql.PreparedStatement;
 @WebServlet("/RestaurantServlet")
 public class RestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	// list of variables used for database connections
+	private String jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
+	private String jdbcUsername = "root";
+	private String jdbcPassword = "password";
+
+	// list of SQL prepared statements to perform CRUD to our database
+	private static final String INSERT_RESTAURANT_SQL = "INSERT INTO RestaurantDetails"
+			+ " (restaurantName, restaurantLocation, openingTime, closingTime, restaurantDescription, restaurantCuisine) VALUES "
+			+ " (?, ?, ?, ?, ?, ?);";
+	private static final String SELECT_RESTAURANT_BY_NAME = "select * from RestaurantDetails where restaurantName =?";
+	private static final String SELECT_ALL_RESTAURANTS = "select * from RestaurantDetails ";
+	private static final String DELETE_RESTAURANT_SQL = "delete from RestaurantDetails where restaurantName = ?;";
+	private static final String UPDATE_RESTAURANT_SQL = "update RestaurantDetails set restaurantName = ?,restaurantLocation= ?, openingTime =?,closingTime =?, restaurantDescription =?, restaurantCuisine =? where restaurantName = ?;";
+
+	// Implement the getConnection method which facilitates connection to the
+	// database via JDBC
+	protected Connection getConnection() {
+		Connection connection = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,9 +65,58 @@ public class RestaurantServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+
+	// Step 5: listOfRestaurants function to connect to the database and retrieve all restaurants
+	// records
+	private void listOfRestaurants(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		List<Restaurant> restaurants = new ArrayList<>();
+		try (Connection connection = getConnection();
+				// Create a statement using connection object
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RESTAURANTS);) {
+			// Execute the query or update query
+			ResultSet rs = preparedStatement.executeQuery();
+			// Process the ResultSet object.
+			while (rs.next()) {
+				String restaurantName = rs.getString("restaurant_name");
+				String restaurantLocation = rs.getString("restaurant_location");
+				String openingTime = rs.getString("restaurant_open_time");
+				String closingTime = rs.getString("restaurant_closing_time");
+				String restaurantDescription = rs.getString("restaurant_description");
+				String restaurantCuisine = rs.getString("cuisine_category");
+				restaurants.add(new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime, restaurantDescription, restaurantCuisine));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be pass to the restaurantManagement.jsp
+		request.setAttribute("listOfRestaurants", restaurants);
+		request.getRequestDispatcher("/restaurantManagement.jsp").forward(request, response);
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Step 4: Depending on the request servlet path, determine the function to
+		// invoke using the follow switch statement.
+		String action = request.getServletPath();
+		try {
+			switch (action) {
+			case "/insert":
+				break;
+			case "/delete":
+				break;
+			case "/edit":
+				break;
+			case "/update":
+				break;
+			default:
+				listOfRestaurants(request, response);
+				break;
+			}
+		} catch (SQLException ex) {
+			throw new ServletException(ex);
+		}
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -44,51 +126,8 @@ public class RestaurantServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Initialize a PrintWriter object to return the html values via the response
-		PrintWriter out = response.getWriter();
-
-		// retrieve the six parameters from the request from the web form
-		String restaurantName = request.getParameter("restaurantName");
-		String restaurantLocation = request.getParameter("restaurantLocation");
-		String openingTime = request.getParameter("restaurantOpening");
-		String closingTime = request.getParameter("restaurantClosing");
-		String restaurantDescription = request.getParameter("restaurantDescription");
-		String restaurantCuisine = request.getParameter("restaurantCuisine");
-
-		// attempt connection to database using JDBC
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_review", "root",
-					"password");
-
-			// implement the sql query using prepared statement
-			PreparedStatement ps = con.prepareStatement("insert into RESTAURANTDETAILS values(?,?,?,?,?,?)");
-
-			// parse in the data retrieved from the web form request into the prepared
-			// statement accordingly
-			ps.setString(1, restaurantName);
-			ps.setString(2, restaurantLocation);
-			ps.setString(3, openingTime);
-			ps.setString(4, closingTime);
-			ps.setString(5, restaurantDescription);
-			ps.setString(6, restaurantCuisine);
-
-			// perform the query on the database using the prepared statement
-			int i = ps.executeUpdate();
-
-			// check if the query had been successfully execute
-			if (i > 0) {
-				PrintWriter writer = response.getWriter();
-				writer.println("<h1>" + "Restaurant has been added successfully!" + "</h1>");
-				writer.close();
-			}
-
-		}
-		// catch and print out any exception
-		catch (Exception exception) {
-			System.out.println(exception);
-			out.close();
-		}
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }
