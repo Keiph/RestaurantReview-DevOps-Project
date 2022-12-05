@@ -66,7 +66,7 @@ public class RestaurantServlet extends HttpServlet {
 	 *      response)
 	 */
 
-	// Step 5: listUsers function to connect to the database and retrieve all users
+	// Step 5: listOfRestaurants function to connect to the database and retrieve all restaurants
 	// records
 	private void listOfRestaurants(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
@@ -89,7 +89,7 @@ public class RestaurantServlet extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		// Step 5.4: Set the users list into the listUsers attribute to be pass to the userManagement.jsp
+		// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be pass to the restaurantManagement.jsp
 		request.setAttribute("listOfRestaurants", restaurants);
 		request.getRequestDispatcher("/restaurantManagement.jsp").forward(request, response);
 	}

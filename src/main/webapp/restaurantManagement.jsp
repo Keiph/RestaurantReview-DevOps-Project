@@ -14,15 +14,15 @@
 <body>
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center">List of Users</h3>
+			<h3 class="text-center">List of Restaurants</h3>
 			<hr>
 			<div class="container text-left">
-				<!-- Add new user button redirects to the register.jsp page -->
+				<!-- Add new restaurant button redirects to the restaurant.jsp page -->
 				<a href="<%=request.getContextPath()%>/restaurant.jsp"
-					class="btn btn-success">Add New User</a>
+					class="btn btn-success">Add New Restaurant</a>
 			</div>
 			<br>
-			<!-- Create a table to list out all current users information -->
+			<!-- Create a table to list out all current restaurants information -->
 			<table class="table">
 				<thead>
 					<tr>
@@ -35,27 +35,27 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<!-- Pass in the list of users receive via the Servlet’s response to a loop
+				<!-- Pass in the list of restaurants receive via the Servlet’s response to a loop
 -->
 				<tbody>
-					<c:forEach var="user" items="${listOfRestaurants}">
-						<!-- For each user in the database, display their
+					<c:forEach var="restaurant" items="${listOfRestaurants}">
+						<!-- For each restaurant in the database, display their
 information accordingly -->
 						<tr>
-							<td><c:out value="${user.restaurantName}" /></td>
-							<td><c:out value="${user.restaurantLocation}" /></td>
-							<td><c:out value="${user.openingTime}" /></td>
-							<td><c:out value="${user.openingTime}" /></td>
-							<td><c:out value="${user.restaurantDescription}" /></td>
-							<td><c:out value="${user.restaurantCuisine}" /></td>
-							<!-- For each user in the database, Edit/Delete
+							<td><c:out value="${restaurant.restaurantName}" /></td>
+							<td><c:out value="${restaurant.restaurantLocation}" /></td>
+							<td><c:out value="${restaurant.openingTime}" /></td>
+							<td><c:out value="${restaurant.openingTime}" /></td>
+							<td><c:out value="${restaurant.restaurantDescription}" /></td>
+							<td><c:out value="${restaurant.restaurantCuisine}" /></td>
+							<!-- For each restaurant in the database, Edit/Delete
 buttons which invokes the edit/delete functions -->
 							<td><a
-								href="edit?name=<c:out value='${user.restaurantName}'
+								href="edit?name=<c:out value='${restaurant.restaurantName}'
 />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
 								href="delete?name=<c:out
-value='${user.restaurantName}' />">Delete</a></td>
+value='${restaurant.restaurantName}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
