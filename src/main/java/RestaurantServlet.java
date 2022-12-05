@@ -78,12 +78,12 @@ public class RestaurantServlet extends HttpServlet {
 			ResultSet rs = preparedStatement.executeQuery();
 			// Process the ResultSet object.
 			while (rs.next()) {
-				String restaurantName = rs.getString("restaurantName");
-				String restaurantLocation = rs.getString("restaurantLocation");
-				String openingTime = rs.getString("openingTime");
-				String closingTime = rs.getString("closingTime");
-				String restaurantDescription = rs.getString("restaurantDescription");
-				String restaurantCuisine = rs.getString("restaurantCuisine");
+				String restaurantName = rs.getString("restaurant_name");
+				String restaurantLocation = rs.getString("restaurant_location");
+				String openingTime = rs.getString("restaurant_open_time");
+				String closingTime = rs.getString("restaurant_closing_time");
+				String restaurantDescription = rs.getString("restaurant_description");
+				String restaurantCuisine = rs.getString("cuisine_category");
 				restaurants.add(new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime, restaurantDescription, restaurantCuisine));
 			}
 		} catch (SQLException e) {
@@ -91,7 +91,7 @@ public class RestaurantServlet extends HttpServlet {
 		}
 		// Step 5.4: Set the users list into the listUsers attribute to be pass to the userManagement.jsp
 		request.setAttribute("listOfRestaurants", restaurants);
-		request.getRequestDispatcher("/userManagement.jsp").forward(request, response);
+		request.getRequestDispatcher("/restaurantManagement.jsp").forward(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

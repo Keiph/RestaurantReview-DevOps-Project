@@ -5,7 +5,9 @@
 <head>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -26,8 +28,8 @@
 					<tr>
 						<th>Name</th>
 						<th>Location</th>
-						<th>Opening Hour</th>
-						<th>Closing Hour</th>
+						<th>Opening Hours</th>
+						<th>Closing Hours</th>
 						<th>Description</th>
 						<th>Cuisine Type</th>
 						<th>Actions</th>
@@ -42,7 +44,7 @@ information accordingly -->
 						<tr>
 							<td><c:out value="${user.restaurantName}" /></td>
 							<td><c:out value="${user.restaurantLocation}" /></td>
-							<td><c:out value="${user.closingTime}" /></td>
+							<td><c:out value="${user.openingTime}" /></td>
 							<td><c:out value="${user.openingTime}" /></td>
 							<td><c:out value="${user.restaurantDescription}" /></td>
 							<td><c:out value="${user.restaurantCuisine}" /></td>
@@ -60,6 +62,5 @@ value='${user.restaurantName}' />">Delete</a></td>
 			</table>
 		</div>
 	</div>
-
 </body>
 </html>
