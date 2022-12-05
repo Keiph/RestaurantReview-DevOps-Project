@@ -11,7 +11,7 @@
 	Name: <input type="text" name="userName">
 	Password: <input type="password" name="password">
 	Email: <input type="text" name="email">
-	Language: <select name="Language">
+	Language: <select name="language">
 		<option>English</option>
 		<option>Spanish</option>
 		<option>French</option>

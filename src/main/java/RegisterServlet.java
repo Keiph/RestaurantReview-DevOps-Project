@@ -37,6 +37,7 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
 		//Step 1: Initialize a PrintWriter object to return the html values via the response
 		PrintWriter out = response.getWriter();
 		
@@ -53,7 +54,7 @@ public class RegisterServlet extends HttpServlet {
 					"jdbc:mysql://localhost:3306/restaurant_review", "root", "password");
 			
 		//Step 4: implement the sql query using prepared statement
-			PreparedStatement ps = con.prepareStatement("insert into RESTAURANT_REVIEW values(?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into USERDETAILS values(?,?,?,?)");
 			
 		//Step 5: parse in the data retrieved from the web form request into the prepared statement accordingly
 			ps.setString(1, n);
