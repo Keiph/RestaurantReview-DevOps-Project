@@ -4,6 +4,7 @@ The focus of the project is applying DevOps knowledge into programing and learni
 
 # Web Application Versions
 V1 - User Management & Restaurant Management
+
 V2 - Food Management & Review Management
 
 # Use Case for Restaurant Review
