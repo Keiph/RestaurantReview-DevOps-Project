@@ -33,7 +33,7 @@ public class RestaurantServlet extends HttpServlet {
 	private static final String INSERT_RESTAURANT_SQL = "INSERT INTO RestaurantDetails"
 			+ " (restaurantName, restaurantLocation, openingTime, closingTime, restaurantDescription, restaurantCuisine) VALUES "
 			+ " (?, ?, ?, ?, ?, ?);";
-	private static final String SELECT_RESTAURANT_BY_NAME = "select * from RestaurantDetails where restaurantName =?";
+	private static final String SELECT_RESTAURANT_BY_NAME = "select restaurant_name, restaurant_location, restaurant_open_time, restaurant_close_time, restaurant_description, cuisine_category from RestaurantDetails where restaurant_name =?";
 	private static final String SELECT_ALL_RESTAURANTS = "select * from RestaurantDetails ";
 	private static final String DELETE_RESTAURANT_SQL = "delete from RestaurantDetails where restaurantName = ?;";
 	private static final String UPDATE_RESTAURANT_SQL = "update RestaurantDetails set restaurantName = ?,restaurantLocation= ?, openingTime =?,closingTime =?, restaurantDescription =?, restaurantCuisine =? where restaurantName = ?;";
@@ -66,7 +66,8 @@ public class RestaurantServlet extends HttpServlet {
 	 *      response)
 	 */
 
-	// Step 5: listOfRestaurants function to connect to the database and retrieve all restaurants
+	// Step 5: listOfRestaurants function to connect to the database and retrieve
+	// all restaurants
 	// records
 	private void listOfRestaurants(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
@@ -84,14 +85,48 @@ public class RestaurantServlet extends HttpServlet {
 				String closingTime = rs.getString("restaurant_closing_time");
 				String restaurantDescription = rs.getString("restaurant_description");
 				String restaurantCuisine = rs.getString("cuisine_category");
-				restaurants.add(new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime, restaurantDescription, restaurantCuisine));
+				restaurants.add(new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime,
+						restaurantDescription, restaurantCuisine));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be pass to the restaurantManagement.jsp
+		// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be
+		// pass to the restaurantManagement.jsp
 		request.setAttribute("listOfRestaurants", restaurants);
 		request.getRequestDispatcher("/restaurantManagement.jsp").forward(request, response);
+	}
+
+	// method to get parameter, query database for existing user data and redirect
+	// to user edit page
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		// get parameter passed in the URL
+		String restaurantName = request.getParameter("restaurantName");
+		Restaurant existingRestaurant = new Restaurant("", "", "", "","","");
+		// Step 1: Establishing a Connection
+		try (Connection connection = getConnection();
+				// Step 2:Create a statement using connection object
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_RESTAURANT_BY_NAME);) {
+			preparedStatement.setString(1, restaurantName);
+			// Step 3: Execute the query or update query
+			ResultSet rs = preparedStatement.executeQuery();
+			// Step 4: Process the ResultSet object
+			while (rs.next()) {
+				restaurantName = rs.getString("restaurant_name");
+				String restaurantLocation = rs.getString("restaurant_location");
+				String openingTime = rs.getString("restaurant_open_time");
+				String closingTime = rs.getString("restaurant_closing_time");
+				String restaurantDescription = rs.getString("restaurant_description");
+				String restaurantCuisine = rs.getString("cuisine_category");
+				existingRestaurant = new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime,restaurantDescription, restaurantCuisine);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		// Step 5: Set existingUser to request and serve up the userEdit form
+		request.setAttribute("restaurant", existingRestaurant);
+		request.getRequestDispatcher("/restaurantEdit.jsp").forward(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -101,15 +136,16 @@ public class RestaurantServlet extends HttpServlet {
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-			case "/insert":
+			case "/RestaurantServlet/delete":
+				deleteUser(request, response);
 				break;
-			case "/delete":
+			case "/RestaurantServlet/edit":
+				showEditForm(request, response);
 				break;
-			case "/edit":
+			case "/RestaurantServlet/update":
+				updateUser(request, response);
 				break;
-			case "/update":
-				break;
-			default:
+			case "/RestaurantServlet/dashboard":
 				listOfRestaurants(request, response);
 				break;
 			}
