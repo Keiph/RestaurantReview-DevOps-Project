@@ -33,10 +33,10 @@ public class RestaurantServlet extends HttpServlet {
 	private static final String INSERT_RESTAURANT_SQL = "INSERT INTO RestaurantDetails"
 			+ " (restaurantName, restaurantLocation, openingTime, closingTime, restaurantDescription, restaurantCuisine) VALUES "
 			+ " (?, ?, ?, ?, ?, ?);";
-	private static final String SELECT_RESTAURANT_BY_NAME = "select restaurant_name, restaurant_location, restaurant_open_time, restaurant_close_time, restaurant_description, cuisine_category from RestaurantDetails where restaurant_name =?";
+	private static final String SELECT_RESTAURANT_BY_NAME = "select restaurant_name, restaurant_location, restaurant_open_time, restaurant_closing_time, restaurant_description, cuisine_category from RestaurantDetails where restaurant_name =?";
 	private static final String SELECT_ALL_RESTAURANTS = "select * from RestaurantDetails ";
 	private static final String DELETE_RESTAURANT_SQL = "delete from RestaurantDetails where restaurant_name = ?;";
-	private static final String UPDATE_RESTAURANT_SQL = "update RestaurantDetails set restaurant_name = ?,restaurant_location= ?, restaurant_open_time =?,restaurant_close_time =?, restaurant_description =?, cuisine_category =? where restaurant_name= ?;";
+	private static final String UPDATE_RESTAURANT_SQL = "update RestaurantDetails set restaurant_name = ?,restaurant_location= ?, restaurant_open_time =?,restaurant_closing_time =?, restaurant_description =?, cuisine_category =? where restaurant_name= ?;";
 
 	// Implement the getConnection method which facilitates connection to the
 	// database via JDBC
