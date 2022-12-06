@@ -103,6 +103,7 @@ public class RestaurantServlet extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		// get parameter passed in the URL
 		String restaurantName = request.getParameter("restaurantName");
+		System.out.println(restaurantName);
 		Restaurant existingRestaurant = new Restaurant("", "", "", "", "", "");
 		// Step 1: Establishing a Connection
 		try (Connection connection = getConnection();

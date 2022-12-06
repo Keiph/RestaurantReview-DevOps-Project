@@ -51,10 +51,10 @@ information accordingly -->
 							<!-- For each restaurant in the database, Edit/Delete
 buttons which invokes the edit/delete functions -->
 							<td><a
-								href="edit?name=<c:out value='${restaurant.restaurantName}'
+								href="edit?restaurantName=<c:out value='${restaurant.restaurantName}'
 />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?name=<c:out
+								href="delete?restaurantName=<c:out
 value='${restaurant.restaurantName}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
