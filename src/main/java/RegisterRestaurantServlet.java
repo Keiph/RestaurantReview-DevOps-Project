@@ -76,9 +76,7 @@ public class RegisterRestaurantServlet extends HttpServlet {
 
 			// check if the query had been successfully execute
 			if (i > 0) {
-				PrintWriter writer = response.getWriter();
-				writer.println("<h1>" + "Restaurant has been added successfully!" + "</h1>");
-				writer.close();
+				response.sendRedirect("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
 			}
 
 		}
