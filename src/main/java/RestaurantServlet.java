@@ -35,7 +35,7 @@ public class RestaurantServlet extends HttpServlet {
 			+ " (?, ?, ?, ?, ?, ?);";
 	private static final String SELECT_RESTAURANT_BY_NAME = "select restaurant_name, restaurant_location, restaurant_open_time, restaurant_close_time, restaurant_description, cuisine_category from RestaurantDetails where restaurant_name =?";
 	private static final String SELECT_ALL_RESTAURANTS = "select * from RestaurantDetails ";
-	private static final String DELETE_RESTAURANT_SQL = "delete from RestaurantDetails where restaurantName = ?;";
+	private static final String DELETE_RESTAURANT_SQL = "delete from RestaurantDetails where restaurant_name = ?;";
 	private static final String UPDATE_RESTAURANT_SQL = "update RestaurantDetails set restaurant_name = ?,restaurant_location= ?, restaurant_open_time =?,restaurant_close_time =?, restaurant_description =?, cuisine_category =? where restaurant_name= ?;";
 
 	// Implement the getConnection method which facilitates connection to the
@@ -153,7 +153,21 @@ public class RestaurantServlet extends HttpServlet {
 			int i = statement.executeUpdate();
 		}
 		// Step 3: redirect back to UserServlet
-		response.sendRedirect("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard");
+		response.sendRedirect("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
+	}
+
+	// method to delete user
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		// Step 1: Retrieve value from the request
+		String restaurantName = request.getParameter("restaurantName");
+		// Step 2: Attempt connection with database and execute delete user SQL query
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_RESTAURANT_SQL);) {
+			statement.setString(1, restaurantName);
+			int i = statement.executeUpdate();
+		}
+		// Step 3: redirect back to UserServlet dashboard
+		response.sendRedirect("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
