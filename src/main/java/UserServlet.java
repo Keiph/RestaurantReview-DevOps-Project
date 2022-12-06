@@ -1,13 +1,16 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.User;
+import com.dvops.maven.eclipse.User;
+
+//import org.apache.catalina.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,7 +28,7 @@ import javax.servlet.RequestDispatcher;
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//Step 1: Prepare list of variables used for database connections
-	private String jdbcURL = "jdbc:mysql://localhost:3306/userdetails";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "password";
 	
