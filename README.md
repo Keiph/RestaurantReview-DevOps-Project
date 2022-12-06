@@ -8,7 +8,8 @@ V1 - User Management & Restaurant Management
 V2 - Food Management & Review Management
 
 ### Use Case for Restaurant Review
-![DVOPS_UseCase](https://user-images.githubusercontent.com/83292954/205736001-fcb67849-72a6-4992-8cd6-e01515daef7c.png)
+![RestaurantReview_UseCase](https://user-images.githubusercontent.com/83292954/205979471-d734fc35-3900-461a-a6f0-5b457c4e3651.png)
+
 
 ### Database Schema
 ![Database_schemaV2](https://user-images.githubusercontent.com/83292954/205736041-1a8db106-20fd-445d-84f7-eeb80937e3d8.png)
