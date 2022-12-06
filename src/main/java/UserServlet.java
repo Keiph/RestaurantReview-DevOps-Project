@@ -102,7 +102,7 @@ public class UserServlet extends HttpServlet {
 		}
 		// Step 3: redirect back to UserServlet dashboard (note: remember to change the
 		// url to your project name)
-		response.sendRedirect("http://localhost:8090/HelloWorldJavaEE/UserServlet/dashboard");
+		response.sendRedirect("http://localhost:8080/RestaurantReview/UserServlet/dashboard");
 	}
 
 	// method to get parameter, query database for existing user data and redirect
@@ -155,7 +155,7 @@ public class UserServlet extends HttpServlet {
 		}
 		// Step 3: redirect back to UserServlet (note: remember to change the url to
 		// your project name)
-		response.sendRedirect("http://localhost:8090/HelloWorldJavaEE/UserServlet/dashboard");
+		response.sendRedirect("http://localhost:8080/RestaurantReview/UserServlet/dashboard");
 	}
 
 	// Step 5: listUsers function to connect to the database and retrieve all users
