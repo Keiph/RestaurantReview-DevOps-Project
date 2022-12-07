@@ -12,6 +12,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+  
 	<servlet>
 		<servlet-name>UserServlet</servlet-name>
 		<servlet-class>UserServlet</servlet-class>
@@ -22,5 +23,17 @@
 		<url-pattern>/UserServlet/edit</url-pattern>
 		<url-pattern>/UserServlet/update</url-pattern>
 		<url-pattern>/UserServlet/delete</url-pattern>
+
+	<servlet>
+		<servlet-name>RestaurantServlet</servlet-name>
+		<servlet-class>RestaurantServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RestaurantServlet</servlet-name>
+		<url-pattern>/RestaurantServlet/dashboard</url-pattern>
+		<url-pattern>/RestaurantServlet/edit</url-pattern>
+		<url-pattern>/RestaurantServlet/update</url-pattern>
+		<url-pattern>/RestaurantServlet/delete</url-pattern>
+    
 	</servlet-mapping>
 </web-app>
