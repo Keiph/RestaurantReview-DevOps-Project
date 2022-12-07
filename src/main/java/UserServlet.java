@@ -26,12 +26,12 @@ import javax.servlet.RequestDispatcher;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// Step 1: Prepare list of variables used for database connections
+	// Prepare list of variables used for database connections
 	private String jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "password";
 
-	// Step 2: Prepare list of SQL prepared statements to perform CRUD to our
+	// Prepare list of SQL prepared statements to perform CRUD to our
 	// database
 	private static final String INSERT_USERS_SQL = "INSERT INTO UserDetails"
 			+ " (name, password, email, language) VALUES " + " (?, ?, ?);";
@@ -40,7 +40,7 @@ public class UserServlet extends HttpServlet {
 	private static final String DELETE_USERS_SQL = "delete from UserDetails where name = ?;";
 	private static final String UPDATE_USERS_SQL = "update UserDetails set name = ?,password= ?, email =?,language =? where name = ?;";
 
-	// Step 3: Implement the getConnection method which facilitates connection to
+	// Implement the getConnection method which facilitates connection to
 	// the database via JDBC
 	protected Connection getConnection() {
 		Connection connection = null;
@@ -92,15 +92,15 @@ public class UserServlet extends HttpServlet {
 
 	// method to delete user
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		// Step 1: Retrieve value from the request
+		// Retrieve value from the request
 		String name = request.getParameter("name");
-		// Step 2: Attempt connection with database and execute delete user SQL query
+		// Attempt connection with database and execute delete user SQL query
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
 			statement.setString(1, name);
 			int i = statement.executeUpdate();
 		}
-		// Step 3: redirect back to UserServlet dashboard (note: remember to change the
+		// redirect back to UserServlet dashboard (note: remember to change the
 		// url to your project name)
 		response.sendRedirect("http://localhost:8080/RestaurantReview/UserServlet/dashboard");
 	}
@@ -112,14 +112,14 @@ public class UserServlet extends HttpServlet {
 		// get parameter passed in the URL
 		String name = request.getParameter("name");
 		User existingUser = new User("", "", "", "");
-		// Step 1: Establishing a Connection
+		// Establishing a Connection
 		try (Connection connection = getConnection();
-				// Step 2:Create a statement using connection object
+				// Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
 			preparedStatement.setString(1, name);
-			// Step 3: Execute the query or update query
+			// Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
-			// Step 4: Process the ResultSet object
+			// Process the ResultSet object
 			while (rs.next()) {
 				name = rs.getString("name");
 				String password = rs.getString("password");
@@ -130,20 +130,20 @@ public class UserServlet extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		// Step 5: Set existingUser to request and serve up the userEdit form
+		// Set existingUser to request and serve up the userEdit form
 		request.setAttribute("user", existingUser);
 		request.getRequestDispatcher("/userEdit.jsp").forward(request, response);
 	}
 
 	// method to update the user table base on the form data
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		// Step 1: Retrieve value from the request
+		// Retrieve value from the request
 		String oriName = request.getParameter("oriName");
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String language = request.getParameter("language");
-		// Step 2: Attempt connection with database and execute update user SQL query
+		// Attempt connection with database and execute update user SQL query
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
 			statement.setString(1, name);
@@ -153,22 +153,22 @@ public class UserServlet extends HttpServlet {
 			statement.setString(5, oriName);
 			int i = statement.executeUpdate();
 		}
-		// Step 3: redirect back to UserServlet (note: remember to change the url to
+		// redirect back to UserServlet (note: remember to change the url to
 		// your project name)
 		response.sendRedirect("http://localhost:8080/RestaurantReview/UserServlet/dashboard");
 	}
 
-	// Step 5: listUsers function to connect to the database and retrieve all users
+	// listUsers function to connect to the database and retrieve all users
 	// records
 	private void listUsers(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<User> users = new ArrayList<>();
 		try (Connection connection = getConnection();
-				// Step 5.1: Create a statement using connection object
+				// Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
-			// Step 5.2: Execute the query or update query
+			// Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
-			// Step 5.3: Process the ResultSet object.
+			// Process the ResultSet object.
 			while (rs.next()) {
 				String name = rs.getString("name");
 				String password = rs.getString("password");
@@ -179,7 +179,7 @@ public class UserServlet extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		// Step 5.4: Set the users list into the listUsers attribute to be pass to the
+		// Set the users list into the listUsers attribute to be pass to the
 		// userManagement.jsp
 		request.setAttribute("listUsers", users);
 		request.getRequestDispatcher("/userManagement.jsp").forward(request, response);
