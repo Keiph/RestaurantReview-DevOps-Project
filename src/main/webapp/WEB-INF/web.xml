@@ -23,6 +23,7 @@
 		<url-pattern>/UserServlet/edit</url-pattern>
 		<url-pattern>/UserServlet/update</url-pattern>
 		<url-pattern>/UserServlet/delete</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>RestaurantServlet</servlet-name>
