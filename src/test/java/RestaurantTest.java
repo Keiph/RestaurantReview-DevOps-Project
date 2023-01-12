@@ -4,10 +4,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.dvops.maven.eclipse.Restaurant;
+
 class RestaurantTest {
+
+	private Restaurant r1;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		r1 = new Restaurant("Mcdonald", "Punggol", "4:00am", "11:00pm", "This is Mcdonalds in Punggol", "Western");
 	}
 
 	@AfterEach
@@ -15,20 +20,37 @@ class RestaurantTest {
 	}
 
 	@Test
-	void testRestaurant() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	void testGetRestaurantName() {
-		fail("Not yet implemented");
+		// Arrange
+		String res_name;
+
+		// Act
+		res_name = r1.getRestaurantName();
+
+		// Assert
+		assertEquals(res_name, "Mcdonald");
+
 	}
 
 	@Test
 	void testSetRestaurantName() {
-		fail("Not yet implemented");
+		String res_name;
+
+		res_name = r1.getRestaurantName();
+
+		assertEquals(res_name, "Mcdonald");
+		
+		r1.setRestaurantName("KFC");
+		
+		res_name = r1.getRestaurantName();
+		
+		assertEquals(res_name, "KFC");
+
 	}
 
+	/*
+	 
+	 
 	@Test
 	void testGetRestaurantLocation() {
 		fail("Not yet implemented");
@@ -78,5 +100,5 @@ class RestaurantTest {
 	void testSetRestaurantCuisine() {
 		fail("Not yet implemented");
 	}
-
+	*/
 }
