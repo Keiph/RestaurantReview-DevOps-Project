@@ -1,5 +1,4 @@
 
-
 public class Restaurant {
 	protected String restaurantName;
 	protected String restaurantLocation;
