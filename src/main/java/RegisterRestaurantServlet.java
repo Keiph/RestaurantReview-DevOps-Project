@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+
 import java.sql.PreparedStatement;
 
 import javax.servlet.ServletException;
@@ -56,8 +57,7 @@ public class RegisterRestaurantServlet extends HttpServlet {
 		// attempt connection to database using JDBC
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_review", "root",
-					"password");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_review", "root","password");
 
 			// implement the sql query using prepared statement
 			PreparedStatement ps = con.prepareStatement("insert into RESTAURANTDETAILS values(?,?,?,?,?,?)");
