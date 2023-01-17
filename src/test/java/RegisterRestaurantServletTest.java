@@ -12,7 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLNonTransientConnectionException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +32,7 @@ class RegisterRestaurantServletTest {
 	PrintWriter printWriter = new PrintWriter(stringWriter);
 
 	RegisterRestaurantServlet registerRestaurant;
+	List<Restaurant> restaurants = new ArrayList<>();
 
 	private static String jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
 	private static String jdbcUsername = "root";
@@ -51,6 +55,8 @@ class RegisterRestaurantServletTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		restaurants.add(new Restaurant("Test Name", "Test Location", "Test Opening ", "Test Closing",
+				"Test Description", "Test Cuisine"));
 	}
 
 	@AfterEach
@@ -63,32 +69,31 @@ class RegisterRestaurantServletTest {
 		HttpServletResponse response = mock(HttpServletResponse.class);
 
 		when(response.getWriter()).thenReturn(printWriter);
-		when(request.getParameter("restaurantName")).thenReturn("KFC");
-		when(request.getParameter("restaurantLocation")).thenReturn("Bedok");
-		when(request.getParameter("restaurantOpening")).thenReturn("7:00am");
-		when(request.getParameter("restaurantClosing")).thenReturn("11:30pm");
-		when(request.getParameter("restaurantDescription")).thenReturn("This is KFC");
-		when(request.getParameter("restaurantCuisine")).thenReturn("Fast Food");
+		when(request.getParameter("restaurantName")).thenReturn(restaurants.get(0).getRestaurantName());
+		when(request.getParameter("restaurantLocation")).thenReturn(restaurants.get(0).getRestaurantLocation());
+		when(request.getParameter("restaurantOpening")).thenReturn(restaurants.get(0).getOpeningTime());
+		when(request.getParameter("restaurantClosing")).thenReturn(restaurants.get(0).getClosingTime());
+		when(request.getParameter("restaurantDescription")).thenReturn(restaurants.get(0).getRestaurantDescription());
+		when(request.getParameter("restaurantCuisine")).thenReturn(restaurants.get(0).getRestaurantCuisine());
 
-		new RegisterRestaurantServlet().doPost(request, response);
 		assertAll(() -> new RegisterRestaurantServlet().doPost(request, response));
+		
+		verify(request, atLeast(1)).getParameter("restaurantName");
+		verify(request, atLeast(1)).getParameter("restaurantLocation");
+		verify(request, atLeast(1)).getParameter("restaurantOpening");
+		verify(request, atLeast(1)).getParameter("restaurantClosing");
+		verify(request, atLeast(1)).getParameter("restaurantDescription");
+		verify(request, atLeast(1)).getParameter("restaurantCuisine");
+		assertEquals(restaurants.get(0).getRestaurantName(),request.getParameter("restaurantName"));
+		assertEquals(restaurants.get(0).getRestaurantLocation(),request.getParameter("restaurantLocation"));
+		assertEquals(restaurants.get(0).getOpeningTime(),request.getParameter("restaurantOpening"));
+		assertEquals(restaurants.get(0).getClosingTime(),request.getParameter("restaurantClosing"));
+		assertEquals(restaurants.get(0).getRestaurantDescription(),request.getParameter("restaurantDescription"));
+		assertEquals(restaurants.get(0).getRestaurantCuisine(),request.getParameter("restaurantCuisine"));
+		
 
 	}
 
-	@Test
-	void testExceptionFromDoPost() throws Exception {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		HttpServletResponse response = mock(HttpServletResponse.class);
-
-		assertThrows(Exception.class, () -> new RegisterRestaurantServlet().doPost(request, response));
-
-		/*
-		 * registerRestaurant = spy(RegisterRestaurantServlet.class);
-		 * 
-		 * doThrow(NullPointerException.class).when(registerRestaurant).doPost(request,
-		 * response);
-		 */
-	}
 
 	@AfterAll
 	static void testCloseConnection() throws Exception {

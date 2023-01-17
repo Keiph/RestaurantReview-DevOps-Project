@@ -77,7 +77,7 @@ public class RegisterRestaurantServlet extends HttpServlet {
 			// check if the query had been successfully execute
 			if (i > 0) {
 				response.sendRedirect("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
-			}
+			} 
 
 		}
 		// catch and print out any exception
