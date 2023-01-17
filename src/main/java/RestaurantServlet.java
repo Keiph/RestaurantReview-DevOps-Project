@@ -26,6 +26,7 @@ public class RestaurantServlet extends HttpServlet {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "password";
+	private String driverClass = "com.mysql.jdbc.Driver";
 
 	// list of SQL prepared statements to perform CRUD to our database
 	private static final String INSERT_RESTAURANT_SQL = "INSERT INTO RestaurantDetails"
@@ -36,17 +37,26 @@ public class RestaurantServlet extends HttpServlet {
 	private static final String DELETE_RESTAURANT_SQL = "delete from RestaurantDetails where restaurant_name = ?;";
 	private static final String UPDATE_RESTAURANT_SQL = "update RestaurantDetails set restaurant_name = ?,restaurant_location= ?, restaurant_open_time =?,restaurant_closing_time =?, restaurant_description =?, cuisine_category =? where restaurant_name = ?;";
 
+	
 	// Implement the getConnection method which facilitates connection to the
 	// database via JDBC
-	protected Connection getConnection() {
+	protected Connection getConnection(String driverClass ,String jdbcURL,String jdbcUsername, String jdbcPassword) throws SQLException, ClassNotFoundException {
 		Connection connection = null;
+		/*
+		this.driverClass = driverClass;
+		this.jdbcUsername = jdbcUsername;
+		this.jdbcURL = jdbcURL;
+		this.jdbcPassword = jdbcPassword;
+		*/
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(driverClass);
 			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new SQLException();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			throw new ClassNotFoundException();
 		}
 		return connection;
 	}
@@ -70,7 +80,7 @@ public class RestaurantServlet extends HttpServlet {
 	private void listOfRestaurants(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Restaurant> restaurants = new ArrayList<>();
-		try (Connection connection = getConnection();
+		try (Connection connection = getConnection(this.driverClass, this.jdbcURL,this.jdbcUsername, this.jdbcPassword);
 				// Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RESTAURANTS);) {
 			// Execute the query or update query
@@ -86,7 +96,7 @@ public class RestaurantServlet extends HttpServlet {
 				restaurants.add(new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime,
 						restaurantDescription, restaurantCuisine));
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be
@@ -103,7 +113,7 @@ public class RestaurantServlet extends HttpServlet {
 		String restaurantName = request.getParameter("name");
 		Restaurant existingRestaurant = new Restaurant("", "", "", "", "", "");
 		// Step 1: Establishing a Connection
-		try (Connection connection = getConnection();
+		try (Connection connection = getConnection(this.driverClass, this.jdbcURL,this.jdbcUsername, this.jdbcPassword);
 				// Step 2:Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_RESTAURANT_BY_NAME);) {
 			preparedStatement.setString(1, restaurantName);
@@ -120,7 +130,7 @@ public class RestaurantServlet extends HttpServlet {
 				existingRestaurant = new Restaurant(restaurantName, restaurantLocation, openingTime, closingTime,
 						restaurantDescription, restaurantCuisine);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		// Step 5: Set existingUser to request and serve up the userEdit form
@@ -129,7 +139,7 @@ public class RestaurantServlet extends HttpServlet {
 	}
 
 	// method to update the restaurant table base on the form data
-	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void updateRestaurant(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ClassNotFoundException {
 		// Step 1: Retrieve value from the request
 		String oriRestaurantName = request.getParameter("oriRestaurantName");
 		String restaurantName = request.getParameter("restaurantName");
@@ -139,7 +149,7 @@ public class RestaurantServlet extends HttpServlet {
 		String restaurantDescription = request.getParameter("restaurantDescription");
 		String restaurantCuisine = request.getParameter("restaurantCuisine");
 		// Step 2: Attempt connection with database and execute update user SQL query
-		try (Connection connection = getConnection();
+		try (Connection connection = getConnection(this.driverClass, this.jdbcURL,this.jdbcUsername, this.jdbcPassword);
 				PreparedStatement statement = connection.prepareStatement(UPDATE_RESTAURANT_SQL);) {
 			statement.setString(1, restaurantName);
 			statement.setString(2, restaurantLocation);
@@ -155,11 +165,11 @@ public class RestaurantServlet extends HttpServlet {
 	}
 
 	// method to delete user
-	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void deleteRestaurant(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ClassNotFoundException {
 		// Step 1: Retrieve value from the request
 		String restaurantName = request.getParameter("name");
 		// Step 2: Attempt connection with database and execute delete user SQL query
-		try (Connection connection = getConnection();
+		try (Connection connection = getConnection(this.driverClass, this.jdbcURL,this.jdbcUsername, this.jdbcPassword);
 				PreparedStatement statement = connection.prepareStatement(DELETE_RESTAURANT_SQL);) {
 			statement.setString(1, restaurantName);
 			int i = statement.executeUpdate();
@@ -176,20 +186,23 @@ public class RestaurantServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "/RestaurantServlet/delete":
-				deleteUser(request, response);
+				deleteRestaurant(request, response);
 				break;
 			case "/RestaurantServlet/edit":
 				showEditForm(request, response);
 				break;
 			case "/RestaurantServlet/update":
-				updateUser(request, response);
+				updateRestaurant(request, response);
 				break;
 			case "/RestaurantServlet/dashboard":
 				listOfRestaurants(request, response);
 				break;
 			}
-		} catch (SQLException ex) {
-			throw new ServletException(ex);
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new IOException(e);
 		}
 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
