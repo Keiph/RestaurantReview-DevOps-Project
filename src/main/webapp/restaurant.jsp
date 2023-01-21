@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Add Restaurant</title>
 </head>
 <body>
 	<form action="RegisterRestaurantServlet" method="post">
@@ -21,7 +21,7 @@
 			<option>Korean</option>
 			<option>German</option>
 			<option>Indian</option>
-		</select> <input type="submit" value="Add Restaurant" />
+		</select> <input type="submit" value="Add Restaurant" id="addRes"/>
 	</form>
 
 </body>
