@@ -9,7 +9,7 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Restaurant Management Application</title>
 </head>
 <body>
 	<div class="row">
@@ -19,7 +19,7 @@
 			<div class="container text-left">
 				<!-- Add new restaurant button redirects to the restaurant.jsp page -->
 				<a href="<%=request.getContextPath()%>/restaurant.jsp"
-					class="btn btn-success">Add New Restaurant</a>
+					class="btn btn-success" id="toResBtn">Add New Restaurant</a>
 			</div>
 			<br>
 			<!-- Create a table to list out all current restaurants information -->

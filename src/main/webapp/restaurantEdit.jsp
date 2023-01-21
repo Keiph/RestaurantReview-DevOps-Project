@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>User Management Application</title>
+<title>Edit Restaurant</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -83,7 +83,7 @@ value='${restaurant.restaurantDescription}' />"
 value='${restaurant.restaurantCuisine}' />"
 						class="form-control" name="restaurantCuisine">
 				</fieldset>
-				<button type="submit" class="btn btn-success">Save</button>
+				<button type="submit" class="btn btn-success" id= "saveEdit">Save</button>
 				</form>
 			</div>
 		</div>
