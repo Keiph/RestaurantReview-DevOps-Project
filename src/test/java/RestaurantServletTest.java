@@ -68,8 +68,8 @@ class RestaurantServletTest {
 	@Test
 	void testConnectionClassNotFound() {
 		// arrange
-		jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
-		jdbcUsername = "root";
+		jdbcURL = "jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db";
+		jdbcUsername = "admin";
 		jdbcPassword = "password";
 		// act & assert
 		assertThrows(ClassNotFoundException.class,
@@ -82,13 +82,14 @@ class RestaurantServletTest {
 	@Order(1)
 	void testGetConnectionSuccessful() {
 		// arrange
-		jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
-		jdbcUsername = "root";
+		jdbcURL = "jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db";
+		jdbcUsername = "admin";
 		jdbcPassword = "password";
 		driverClass = "com.mysql.jdbc.Driver";
+		
 		// act & assert
-		assertEquals("jdbc:mysql://localhost:3306/restaurant_review", jdbcURL);
-		assertEquals("root", jdbcUsername);
+		assertEquals("jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db", jdbcURL);
+		assertEquals("admin", jdbcUsername);
 		assertEquals("password", jdbcPassword);
 		assertAll(() -> new RestaurantServlet().getConnection(driverClass, jdbcURL, jdbcUsername, jdbcPassword));
 		
