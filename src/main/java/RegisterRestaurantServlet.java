@@ -57,10 +57,10 @@ public class RegisterRestaurantServlet extends HttpServlet {
 		// attempt connection to database using JDBC
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_review", "root","password");
+			Connection con = DriverManager.getConnection("jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db","admin","password");
 
 			// implement the sql query using prepared statement
-			PreparedStatement ps = con.prepareStatement("insert into RESTAURANTDETAILS values(?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into restaurantdetails values(?,?,?,?,?,?)");
 
 			// parse in the data retrieved from the web form request into the prepared
 			// statement accordingly
@@ -76,7 +76,9 @@ public class RegisterRestaurantServlet extends HttpServlet {
 
 			// check if the query had been successfully execute
 			if (i > 0) {
-				response.sendRedirect("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
+				// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be
+				// pass to the restaurantManagement.jsp
+				request.getRequestDispatcher("/restaurantManagement.jsp").forward(request, response);
 			} 
 
 		}
