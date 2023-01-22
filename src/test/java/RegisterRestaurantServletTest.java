@@ -34,15 +34,15 @@ class RegisterRestaurantServletTest {
 	RegisterRestaurantServlet registerRestaurant;
 	List<Restaurant> restaurants = new ArrayList<>();
 
-	private static String jdbcURL = "jdbc:mysql://localhost:3306/restaurant_review";
-	private static String jdbcUsername = "root";
+	private static String jdbcURL = "jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db";
+	private static String jdbcUsername = "admin";
 	private static String jdbcPassword = "password";
 
 	@BeforeAll
 	@RepeatedTest(3)
 	static void testDatabaseConnection() throws Exception {
-		assertEquals("jdbc:mysql://localhost:3306/restaurant_review", jdbcURL, "Unable to find Database URL");
-		assertEquals("root", jdbcUsername, "Invalid username and password, Access Denied!");
+		assertEquals("jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db", jdbcURL, "Unable to find Database URL");
+		assertEquals("admin", jdbcUsername, "Invalid username and password, Access Denied!");
 		assertEquals("password", jdbcPassword, "Invalid username and password, Access Denied");
 
 		Class.forName("com.mysql.jdbc.Driver");
