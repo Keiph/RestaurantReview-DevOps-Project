@@ -1,3 +1,4 @@
+[![Quality Gate Status](http://127.0.0.1:9000/api/project_badges/measure?project=RestaurantReview%3ARestaurantReview&metric=alert_status)](http://127.0.0.1:9000/dashboard?id=RestaurantReview%3ARestaurantReview)
 ### RestaurantReview-DevOps-Project
 Web Application done by Keiph and Hong Chao Ying from P04 Y2022/2023
 The focus of the project is applying DevOps knowledge into programing and learning collaboration between differing programing styles with the help of Source Code Management Tools and Version Control in enabling for close monitoring and avoid unforseen conflicts.
