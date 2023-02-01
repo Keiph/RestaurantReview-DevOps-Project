@@ -59,7 +59,7 @@ class RestaurantServletTest {
 		driverClass = "com.mysql.jdbc.Driver";
 		// act & assert
 		assertThrows(SQLException.class, () -> new RestaurantServlet().getConnection(driverClass,
-				"jdbc:mysql://localhost:3306/restaurant_review", "roots", "password"));
+				"jdbc:mysql://restaurant-db.cxlgkwuwv7wz.us-east-1.rds.amazonaws.com:3306/restaurant_db", "roots", "password"));
 
 		
 
@@ -95,11 +95,6 @@ class RestaurantServletTest {
 		
 		
 		
-	}
-
-	@Test
-	void testDoGetHttpServletRequestHttpServletResponse() {
-
 	}
 
 	@Test
