@@ -1,3 +1,5 @@
+package com.dvops.maven.eclipse;
+
 
 public class User {
 	protected String name;
