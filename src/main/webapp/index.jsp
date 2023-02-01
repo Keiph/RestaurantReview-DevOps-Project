@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Automated Build Trigger Test</title>
+<title>Insert title here</title>
 </head>
 <body>
 <!-- Jenkins Test -->
