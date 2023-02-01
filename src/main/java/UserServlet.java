@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dvops.maven.eclipse.User;
-
 //import org.apache.catalina.User;
 
 import java.sql.Connection;
