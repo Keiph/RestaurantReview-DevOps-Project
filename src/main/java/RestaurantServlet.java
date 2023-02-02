@@ -52,10 +52,8 @@ public class RestaurantServlet extends HttpServlet {
 			Class.forName(driverClass);
 			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new SQLException();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 			throw new ClassNotFoundException();
 		}
 		return connection;
