@@ -30,7 +30,7 @@ class SeleniumTest {
 
 	void testHelloRestaurantFunction() {
 		String myName = "Keiph";
-		webDriver.navigate().to("http://localhost:8090/RestaurantReview");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview");
 		System.out.println(webDriver.getCurrentUrl());
 
 		assertEquals(webDriver.getTitle(), "Insert title here");
@@ -53,12 +53,12 @@ class SeleniumTest {
 		String urlTitle = "Add Restaurant";
 		String myRes = "New Name", myLoc = "New Location", myOpen = "00:00", myClose = "00:00", myDesc = "New Desc",
 				myCuisine = "Western";
-		webDriver.navigate().to("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
 		System.out.println(webDriver.getCurrentUrl());
-		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
 		webDriver.findElement(By.id("toResBtn")).click();
 		System.out.println(webDriver.getCurrentUrl());
-		assertEquals("http://localhost:8090/RestaurantReview/restaurant.jsp", webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/restaurant.jsp", webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), urlTitle);
 
 		webDriver.findElement(By.name("restaurantName")).sendKeys(myRes);
@@ -71,21 +71,21 @@ class SeleniumTest {
 		webDriver.findElement(By.id("addRes")).click();
 
 		System.out.println(webDriver.getCurrentUrl());
-		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
 
 		assertTrue(webDriver.getPageSource().contains(myRes));
 
 		//Testing Read and Update Functionality
 		String newRes = "1", newLoc = "2", newOpen = "am", newClose = "pm", newDesc = "5", newCuisine = "6";
 
-		webDriver.navigate().to("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
 		
-		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
 		
 		//Click anchor tag link for edit --> Specifically any anchor path that has "New Name" 
 		webDriver.findElement(By.xpath("//a[@href='edit?name=New Name']")).click();
 		
-		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/edit?name=New%20Name", webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/edit?name=New%20Name", webDriver.getCurrentUrl());
 		
 		webDriver.findElement(By.name("restaurantName")).sendKeys(newRes);
 		webDriver.findElement(By.name("restaurantLocation")).sendKeys(newLoc);
@@ -96,16 +96,16 @@ class SeleniumTest {
 
 		webDriver.findElement(By.id("saveEdit")).click();
 		
-		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard",webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard",webDriver.getCurrentUrl());
 		
 		//Testing Delete Functionality
-		webDriver.navigate().to("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
 		
 		//Delete where name = name of the restaurant (New Name1)
 		//Click anchor tag link for delete 
 		webDriver.findElement(By.xpath("//a[@href='delete?name=New Name1']")).click();
 		
-		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard",webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard",webDriver.getCurrentUrl());
 		assertFalse(webDriver.getPageSource().contains(myRes + newRes));
 		
 
