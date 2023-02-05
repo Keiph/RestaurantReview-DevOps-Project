@@ -78,7 +78,7 @@ public class RegisterRestaurantServlet extends HttpServlet {
 			if (i > 0) {
 				// Step 5.4: Set the restaurants list into the listOfRestaurants attribute to be
 				// pass to the restaurantManagement.jsp
-				response.sendRedirect("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard");
+				response.sendRedirect("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard");
 			} 
 
 		}
