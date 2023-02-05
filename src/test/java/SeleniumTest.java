@@ -71,7 +71,7 @@ class SeleniumTest {
 		webDriver.findElement(By.id("addRes")).click();
 
 		System.out.println(webDriver.getCurrentUrl());
-		assertEquals("http://localhost:8080/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
+		assertEquals("http://localhost:8090/RestaurantReview/RestaurantServlet/dashboard", webDriver.getCurrentUrl());
 
 		assertTrue(webDriver.getPageSource().contains(myRes));
 
