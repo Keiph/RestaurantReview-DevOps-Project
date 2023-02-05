@@ -62,7 +62,7 @@ class SeleniumTest {
 		System.out.println(webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), "Edit Restaurant");
 		
-		webDriver.navigate().to("http://localhost:8080/restaurantEdit.jsp");
+		webDriver.navigate().to("http://localhost:8080/restaurantManagement.jsp");
 		System.out.println(webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), "Restaurant Management Application");
 		
