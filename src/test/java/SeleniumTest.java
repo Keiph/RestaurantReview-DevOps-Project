@@ -30,7 +30,7 @@ class SeleniumTest {
 
 	void testHelloRestaurantFunction() {
 		
-		webDriver.navigate().to("http://localhost:8080/index.jsp");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/index.jsp");
 		System.out.println(webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), "Insert title here");
 		/*
@@ -54,15 +54,15 @@ class SeleniumTest {
 	@Test
 
 	void testRestaurantFunction() {
-		webDriver.navigate().to("http://localhost:8080/restaurant.jsp");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/restaurant.jsp");
 		System.out.println(webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), "Add Restaurant");
 		
-		webDriver.navigate().to("http://localhost:8080/restaurantEdit.jsp");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/restaurantEdit.jsp");
 		System.out.println(webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), "Edit Restaurant");
 		
-		webDriver.navigate().to("http://localhost:8080/restaurantManagement.jsp");
+		webDriver.navigate().to("http://localhost:8080/RestaurantReview/restaurantManagement.jsp");
 		System.out.println(webDriver.getCurrentUrl());
 		assertEquals(webDriver.getTitle(), "Restaurant Management Application");
 		
