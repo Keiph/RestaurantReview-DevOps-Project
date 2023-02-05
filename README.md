@@ -9,7 +9,7 @@ The focus of the project is applying DevOps knowledge into programing and learni
 ### Database Schema
 ![Database_schemaV2](https://user-images.githubusercontent.com/83292954/205736041-1a8db106-20fd-445d-84f7-eeb80937e3d8.png)
 
-jenkins test automation v6
+jenkins test automation v7
 
 ### Web Application Versions
 V1 - User Management & Restaurant Management
